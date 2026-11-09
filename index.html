@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taller El Pistón - Gestión</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/pocketbase@0.21.5/dist/pocketbase.umd.js"></script>
+</head>
+<body>
+    <header>
+        <h1>El Pistón 🔧</h1>
+        <nav>
+            <button class="nav-btn active" data-view="ordenes">Órdenes</button>
+            <button class="nav-btn" data-view="inventario">Inventario</button>
+            <button class="nav-btn" data-view="nuevo">Nuevo Ingreso</button>
+            <button class="nav-btn" data-view="reportes">Reportes</button>
+        </nav>
+        <button id="btn-tema" class="btn-tema">Modo Oscuro</button>
+    </header>
+
+    <main>
+        <section id="vista-ordenes" class="vista activa">
+            <h2>Órdenes de Servicio</h2>
+            <div id="lista-ordenes" class="grid"></div>
+        </section>
+
+        <section id="vista-inventario" class="vista">
+            <h2>Inventario de Repuestos</h2>
+            <div id="lista-repuestos" class="grid"></div>
+        </section>
+
+        <section id="vista-nuevo" class="vista">
+            <h2>Registrar Nuevo Ingreso</h2>
+            <form id="form-ingreso">
+                <fieldset>
+                    <legend>Datos del Cliente</legend>
+                    <input type="text" id="cli-nombre" placeholder="Nombre" required>
+                    <input type="text" id="cli-tel" placeholder="Teléfono" required>
+                    <input type="text" id="cli-dir" placeholder="Dirección">
+                </fieldset>
+                <fieldset>
+                    <legend>Datos del Vehículo</legend>
+                    <input type="text" id="veh-placa" placeholder="Placa" required>
+                    <input type="text" id="veh-marca" placeholder="Marca" required>
+                    <input type="text" id="veh-modelo" placeholder="Modelo">
+                </fieldset>
+                <fieldset>
+                    <legend>Orden</legend>
+                    <input type="text" id="ord-falla" placeholder="Falla reportada" required>
+                    <input type="text" id="ord-mecanico" placeholder="Mecánico asignado">
+                </fieldset>
+                <button type="submit" class="btn">Crear Orden</button>
+                <p id="msj-form"></p>
+            </form>
+        </section>
+
+        <section id="vista-reportes" class="vista">
+            <h2>Reportes</h2>
+            <div class="grid-reportes">
+                <div class="card"><h3>🔧 Carga por Mecánico</h3><div id="rep-mecanicos"></div></div>
+                <div class="card"><h3>💰 Deudas por Cliente</h3><div id="rep-deudas"></div></div>
+                <div class="card"><h3>📦 Repuestos Bajos</h3><div id="rep-stock"></div></div>
+                <div class="card"><h3>💵 Facturación Total</h3><div id="rep-facturacion"></div></div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal Detalle -->
+    <div id="modal-detalle" class="modal oculto">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-titulo">Detalle de Orden</h2>
+                <button id="btn-cerrar-modal">✖</button>
+            </div>
+            <div id="modal-info"></div>
+            
+            <fieldset>
+                <legend>Agregar Trabajo</legend>
+                <input type="text" id="trabajo-desc" placeholder="Descripción">
+                <input type="number" id="trabajo-costo" placeholder="Costo $">
+                <button id="btn-add-trabajo" class="btn">Agregar</button>
+            </fieldset>
+
+            <fieldset>
+                <legend>Agregar Repuesto</legend>
+                <select id="select-repuesto"></select>
+                <input type="number" id="rep-cantidad" placeholder="Cantidad" value="1" min="1">
+                <button id="btn-add-repuesto" class="btn">Agregar</button>
+            </fieldset>
+
+            <fieldset>
+                <legend>Registrar Pago</legend>
+                <input type="number" id="pago-monto" placeholder="Monto $">
+                <button id="btn-add-pago" class="btn">Registrar</button>
+            </fieldset>
+
+            <div id="modal-listas"></div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
